@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Decentralised Lending Platform | Blockchain Engineering</title>
+  <meta name="description" content="Course-project prototype for a blockchain-based decentralised lending platform.">
+  <style>
+    :root{--bg:#070b17;--panel:#111a2d;--panel2:#17233b;--line:#2a3a59;--text:#eef3ff;--muted:#a2b0cc;--blue:#5d8cff;--purple:#a16cff;--cyan:#43dfdc;--green:#35d6a0}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 78% 0,#1c2a5a 0,transparent 35%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    a{color:inherit;text-decoration:none}header{position:sticky;top:0;z-index:5;background:#070b17dd;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:17px 5%}
+    .brand{font-weight:900;font-size:19px;letter-spacing:.5px}.brand span{color:var(--cyan)}nav{display:flex;gap:22px;color:var(--muted);font-size:14px}nav a:hover{color:white}
+    .wrap{max-width:1160px;margin:auto;padding:0 22px}.hero{padding:76px 0 48px;display:grid;grid-template-columns:1.4fr .8fr;gap:32px;align-items:center}.eyebrow{color:var(--cyan);font-weight:800;font-size:12px;letter-spacing:2px}
+    h1{font-size:clamp(38px,5.5vw,66px);line-height:1.03;letter-spacing:-2px;margin:16px 0}.gradient{background:linear-gradient(90deg,#79a6ff,#b17aff,#46e4dd);color:transparent;background-clip:text}
+    p{color:var(--muted);line-height:1.7}.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.btn{display:inline-block;padding:12px 17px;border-radius:12px;background:linear-gradient(100deg,var(--blue),var(--purple));font-weight:800;font-size:14px;border:0;color:white;cursor:pointer}.btn.alt{background:#17243d;border:1px solid var(--line)}
+    .orb{min-height:290px;border:1px solid #344a84;border-radius:28px;background:radial-gradient(circle,#273f91 0,#111a36 52%,#0b1123 76%);display:grid;place-items:center;box-shadow:0 0 55px #456eff25;position:relative;overflow:hidden}.eth{font-size:100px;color:#a9b5ff;text-shadow:0 0 35px #7e8cff}.orb small{position:absolute;bottom:24px;color:var(--cyan);letter-spacing:2px}
+    section{padding:34px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}h2{font-size:28px;margin:0;letter-spacing:-.5px}h3{margin:0 0 10px;font-size:17px}.sub{margin:8px 0 0;font-size:14px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.grid.four{grid-template-columns:repeat(4,1fr)}.grid.two{grid-template-columns:repeat(2,1fr)}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:17px;padding:21px}.card p{font-size:14px;margin:0}.num{font-size:26px;font-weight:900;color:var(--cyan);margin-bottom:9px}.pill{display:inline-block;border:1px solid #3b5279;background:#172642;border-radius:99px;padding:6px 10px;font-size:11px;color:#c8d7f7;margin:4px 4px 0 0}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.step{padding:18px 15px;background:var(--panel);border:1px solid var(--line);border-radius:16px}.stepno{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(130deg,var(--green),#1b9478);font-weight:900;margin-bottom:15px}.step p{font-size:13px}
+    .layer{display:grid;grid-template-columns:180px 1fr;gap:18px;align-items:center;margin:10px 0;padding:16px 20px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}.layer b{color:var(--cyan)}
+    .riskrow{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;margin:10px 0}.risk,.control{padding:15px;border-radius:13px;border:1px solid var(--line)}.risk{background:#291b27;color:#ffb5a9}.control{background:#101e32;color:#dce8ff}
+    .roadmap{border-left:2px solid #536fc0;padding-left:20px}.road{position:relative;margin:0 0 20px}.road:before{content:"";position:absolute;left:-27px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+    form{display:flex;flex-wrap:wrap;gap:10px;align-items:end}label{display:block;color:var(--muted);font-size:12px;width:100%}input,select{background:#080f20;border:1px solid #35496d;color:white;padding:12px;border-radius:10px;min-width:140px}form .field{flex:1}
+    .notice{padding:13px 16px;border-radius:12px;margin:15px 0;background:#122747;border:1px solid #365b90;color:#d9e6ff;font-size:14px}.notice.error{background:#351a25;border-color:#7c3345;color:#ffd5df}.notice.success{background:#103027;border-color:#276f57;color:#c5ffe8}
+    footer{border-top:1px solid var(--line);margin-top:45px;padding:30px 0;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:850px){nav{display:none}.hero{grid-template-columns:1fr;padding-top:45px}.orb{min-height:200px}.grid,.grid.four{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.grid,.grid.four,.grid.two{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.layer,.riskrow{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}h1{letter-spacing:-1px}}
+  </style>
+</head>
+<body>
+<header>
+  <a class="brand" href="/">◈ <span>DEFI</span> LENDING</a>
+  <nav><a href="#how">How it works</a><a href="#architecture">Architecture</a><a href="#contracts">Contracts</a><a href="#security">Security</a><a href="#roadmap">Roadmap</a></nav>
+  <a class="btn" href="#demo">Launch Demo</a>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">BLOCKCHAIN ENGINEERING • COURSE PROJECT</div>
+      <h1>Decentralised lending.<br><span class="gradient">Open, transparent, borderless.</span></h1>
+      <p>A pool-based protocol concept where lenders supply crypto assets to earn yield and borrowers receive liquidity by locking collateral. Smart contracts are designed to enforce the rules automatically.</p>
+      <div class="buttons"><a class="btn" href="#demo">Explore Demo</a><a class="btn alt" href="#how">How it works</a></div>
+      <span class="pill">Permissionless</span><span class="pill">Transparent</span><span class="pill">Automated</span><span class="pill">Global access</span>
+    </div>
+    <div class="orb"><div class="eth">◆</div><small>ETHEREUM • SMART CONTRACTS</small></div>
+  </section>
+
+  <section id="problem">
+    <div class="section-head"><div><h2>Why decentralised lending?</h2><p class="sub">The project targets common limitations in traditional lending.</p></div></div>
+    <div class="grid">
+      <div class="card"><div class="num">1.4B</div><h3>Financial exclusion</h3><p>The presentation cites 1.4 billion adults worldwide without a bank account (World Bank Global Findex, 2021).</p></div>
+      <div class="card"><div class="num">Days → Weeks</div><h3>Slow processing</h3><p>Traditional credit checks, approval, and disbursal can take days to weeks.</p></div>
+      <div class="card"><div class="num">Open rules</div><h3>Pricing transparency</h3><p>On-chain rules make transaction execution and protocol logic publicly inspectable.</p></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="section-head"><div><h2>How the platform works</h2><p class="sub">Five stages in the pool-based lending flow.</p></div></div>
+    <div class="steps">
+      <div class="step"><div class="stepno">1</div><h3>Supply</h3><p>Lenders deposit assets into the pool and receive interest-bearing tokens.</p></div>
+      <div class="step"><div class="stepno">2</div><h3>Collateralise</h3><p>Borrowers lock crypto collateral worth more than the loan.</p></div>
+      <div class="step"><div class="stepno">3</div><h3>Borrow</h3><p>Borrow up to the allowed loan-to-value ratio, without paperwork.</p></div>
+      <div class="step"><div class="stepno">4</div><h3>Repay</h3><p>Repay principal plus variable interest to unlock collateral.</p></div>
+      <div class="step"><div class="stepno">5</div><h3>Liquidate</h3><p>If health factor drops below one, liquidators repay debt and earn a bonus.</p></div>
+    </div>
+  </section>
+
+  <section id="architecture">
+    <div class="section-head"><div><h2>System architecture</h2><p class="sub">The smart contract layer is the core; oracle prices and blockchain settlement support it.</p></div></div>
+    {% for title, desc in architecture %}
+      <div class="layer"><b>{{title}}</b><span>{{desc}}</span></div>
+    {% endfor %}
+  </section>
+
+  <section id="contracts">
+    <div class="section-head"><div><h2>Core smart contracts</h2><p class="sub">Modular responsibilities support code auditability.</p></div></div>
+    <div class="grid">
+      {% for name, desc in contracts %}
+      <div class="card"><span class="pill">SMART CONTRACT</span><h3 style="margin-top:12px">{{name}}</h3><p>{{desc}}</p></div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="section-head"><div><h2>Technology stack</h2><p class="sub">Stack outlined in the project presentation.</p></div></div>
+    <div class="grid four">
+      <div class="card"><h3>Blockchain</h3><span class="pill">Ethereum</span><span class="pill">Polygon / Arbitrum L2</span><span class="pill">Sepolia testnet</span></div>
+      <div class="card"><h3>Contracts</h3><span class="pill">Solidity 0.8.x</span><span class="pill">Hardhat / Foundry</span><span class="pill">OpenZeppelin</span></div>
+      <div class="card"><h3>Frontend</h3><span class="pill">React + Next.js</span><span class="pill">ethers.js / wagmi</span><span class="pill">Tailwind CSS</span></div>
+      <div class="card"><h3>Data</h3><span class="pill">The Graph</span><span class="pill">Chainlink</span><span class="pill">IPFS</span></div>
+    </div>
+  </section>
+
+  <section id="security">
+    <div class="section-head"><div><h2>Security & risk management</h2><p class="sub">Each identified risk is paired with a control strategy.</p></div></div>
+    {% for risk, control in risks %}
+      <div class="riskrow"><div class="risk">⚠ {{risk}}</div><div class="control">🛡 {{control}}</div></div>
+    {% endfor %}
+  </section>
+
+  <section id="roadmap">
+    <div class="section-head"><div><h2>Roadmap</h2><p class="sub">Nine-month plan from design to scaling.</p></div></div>
+    <div class="card roadmap">
+      {% for period, title, desc in roadmap %}
+      <div class="road"><span class="pill">{{period}}</span><h3 style="margin-top:9px">{{title}}</h3><p>{{desc}}</p></div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="demo">
+    <div class="section-head"><div><h2>Supply / borrow demo</h2><p class="sub">Illustrative form only; no wallet or on-chain transaction is connected.</p></div></div>
+    <div class="card">
+      <form method="post" action="{{url_for('demo_action')}}">
+        <div class="field"><label for="action">Action</label><select id="action" name="action"><option>Supply</option><option>Borrow</option><option>Repay</option><option>Withdraw</option></select></div>
+        <div class="field"><label for="asset">Asset</label><select id="asset" name="asset">{% for asset in assets %}<option value="{{asset.symbol}}">{{asset.symbol}} — {{asset.name}}</option>{% endfor %}</select></div>
+        <div class="field"><label for="amount">Amount</label><input id="amount" name="amount" type="number" min="0.01" step="0.01" placeholder="Enter amount" required></div>
+        <button class="btn" type="submit">Simulate action</button>
+      </form>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}<div class="notice {{category}}">{{message}}</div>{% endfor %}
+      {% endwith %}
+      <div class="notice">Prototype notice: the market metrics and APY values are not live. Connect audited contracts and a testnet wallet before representing actions as real.</div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Blockchain-Based Decentralised Lending Platform · Blockchain Engineering Course Project<br>Prototype website based on the project presentation.</div></footer>
+</body>
+</html>
